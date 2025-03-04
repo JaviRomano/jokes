@@ -18,8 +18,8 @@ public class AuthenticationService {
         this.passwordEncoder = passwordEncoder;
     }
 	
-	public String login(String username, String password) {
-		Optional<User> user = userRepository.findByUsername(username);
+	public String login(String email, String password) {
+		Optional<User> user = userRepository.findByEmail(email);
 		
 		if (user.isEmpty()) {
             throw new RuntimeException("No existen datos de Usuario.");
