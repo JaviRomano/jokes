@@ -1,0 +1,17 @@
+C:\Users\francisco 3.2\Documents\workspace-spring-tool-suite-4-4.23.1.RELEASE\jokes\JokesProject\src\main\java\com\fdez_rumi_jokes\app\config\JwtConfig.java
+C:\Users\francisco 3.2\Documents\workspace-spring-tool-suite-4-4.23.1.RELEASE\jokes\JokesProject\src\main\java\com\fdez_rumi_jokes\app\config\JwTGrantedAuthoritiesConverter.java
+C:\Users\francisco 3.2\Documents\workspace-spring-tool-suite-4-4.23.1.RELEASE\jokes\JokesProject\src\main\java\com\fdez_rumi_jokes\app\config\SecurityConfig.java
+C:\Users\francisco 3.2\Documents\workspace-spring-tool-suite-4-4.23.1.RELEASE\jokes\JokesProject\src\main\java\com\fdez_rumi_jokes\app\controller\AuthController.java
+C:\Users\francisco 3.2\Documents\workspace-spring-tool-suite-4-4.23.1.RELEASE\jokes\JokesProject\src\main\java\com\fdez_rumi_jokes\app\controller\HomeController.java
+C:\Users\francisco 3.2\Documents\workspace-spring-tool-suite-4-4.23.1.RELEASE\jokes\JokesProject\src\main\java\com\fdez_rumi_jokes\app\controller\UserRestController.java
+C:\Users\francisco 3.2\Documents\workspace-spring-tool-suite-4-4.23.1.RELEASE\jokes\JokesProject\src\main\java\com\fdez_rumi_jokes\app\entity\Role.java
+C:\Users\francisco 3.2\Documents\workspace-spring-tool-suite-4-4.23.1.RELEASE\jokes\JokesProject\src\main\java\com\fdez_rumi_jokes\app\entity\User.java
+C:\Users\francisco 3.2\Documents\workspace-spring-tool-suite-4-4.23.1.RELEASE\jokes\JokesProject\src\main\java\com\fdez_rumi_jokes\app\entity\UserFactory.java
+C:\Users\francisco 3.2\Documents\workspace-spring-tool-suite-4-4.23.1.RELEASE\jokes\JokesProject\src\main\java\com\fdez_rumi_jokes\app\exception\DataIntegrityException.java
+C:\Users\francisco 3.2\Documents\workspace-spring-tool-suite-4-4.23.1.RELEASE\jokes\JokesProject\src\main\java\com\fdez_rumi_jokes\app\exception\ErrorResponse.java
+C:\Users\francisco 3.2\Documents\workspace-spring-tool-suite-4-4.23.1.RELEASE\jokes\JokesProject\src\main\java\com\fdez_rumi_jokes\app\exception\GlobalExceptionHandler.java
+C:\Users\francisco 3.2\Documents\workspace-spring-tool-suite-4-4.23.1.RELEASE\jokes\JokesProject\src\main\java\com\fdez_rumi_jokes\app\JokesProjectApplication.java
+C:\Users\francisco 3.2\Documents\workspace-spring-tool-suite-4-4.23.1.RELEASE\jokes\JokesProject\src\main\java\com\fdez_rumi_jokes\app\repository\UserRepository.java
+C:\Users\francisco 3.2\Documents\workspace-spring-tool-suite-4-4.23.1.RELEASE\jokes\JokesProject\src\main\java\com\fdez_rumi_jokes\app\service\CustomUserDetailsService.java
+C:\Users\francisco 3.2\Documents\workspace-spring-tool-suite-4-4.23.1.RELEASE\jokes\JokesProject\src\main\java\com\fdez_rumi_jokes\app\service\JwtService.java
+C:\Users\francisco 3.2\Documents\workspace-spring-tool-suite-4-4.23.1.RELEASE\jokes\JokesProject\src\main\java\com\fdez_rumi_jokes\app\service\UserService.java

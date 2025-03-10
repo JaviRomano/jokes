@@ -1,6 +1,6 @@
-package com.fdez_rumi_jokes.app.controller.rest;
+package com.fdez_rumi_jokes.app.controller;
 
-import java.time.LocalDate;
+import java.net.URI;
 import java.util.List;
 import java.util.Optional;
 
@@ -14,22 +14,18 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import com.fdez_rumi_jokes.app.entity.User;
 import com.fdez_rumi_jokes.app.service.UserService;
 
 @RestController
-@RequestMapping("/api/admin/users")
+@RequestMapping("/api/users")
 public class UserRestController {
 
 	@Autowired
-	private final UserService userService;
-
-	public UserRestController(UserService userService) {
-		this.userService = userService;
-	}
+	private UserService userService;
 
 	@GetMapping("/all")
 	public ResponseEntity<List<User>> showAllUser() {
@@ -37,56 +33,50 @@ public class UserRestController {
 		return users.isEmpty() ? ResponseEntity.status(HttpStatus.NOT_FOUND).build() : ResponseEntity.ok(users);
 	}
 
-	@GetMapping("{email}")
-	public ResponseEntity<User> getUserByEmail(@PathVariable String email) {
-		Optional<User> user = userService.findByEmail(email);
+	@GetMapping("/{id}")
+	public ResponseEntity<User> getUserById(@PathVariable Long id) {
+		Optional<User> user = userService.getUserById(id);
 		return user.map(ResponseEntity::ok).orElseGet(() -> ResponseEntity.status(HttpStatus.NOT_FOUND).build());
-	    }
+	}
+
+	@GetMapping("/email/{email}")
+	public ResponseEntity<User> getUserByEmail(@PathVariable String email) {
+		Optional<User> user = userService.getUserByEmail(email);
+		return user.map(ResponseEntity::ok).orElseGet(() -> ResponseEntity.status(HttpStatus.NOT_FOUND).build());
+	}
 
 	@PostMapping("/create/admin")
-	public ResponseEntity<User> createAdmin(@RequestParam String email, @RequestParam String username,
-			@RequestParam String password, @RequestParam String name, @RequestParam String surname,
-			@RequestParam LocalDate dateOfBirth) {
-		User admin = userService.createAdmin(email, username, password, name, surname, dateOfBirth);
-		return ResponseEntity.ok(admin);
+	public ResponseEntity<User> createAdmin(@RequestBody User user) {
+		User admin = userService.createAdmin(user.getEmail(), user.getUsername(), user.getPassword(), user.getName(),
+				user.getSurname(), user.getDateOfBirth());
+		URI location = ServletUriComponentsBuilder.fromCurrentRequest()
+				.path("/{id}")
+				.buildAndExpand(admin.getId())
+				.toUri();
+		return ResponseEntity.created(location).body(admin);
 	}
 
 	@PostMapping("/create/user")
-	public ResponseEntity<User> createUser(@RequestParam String email, @RequestParam String username,
-			@RequestParam String password, @RequestParam String name, @RequestParam String surname,
-			@RequestParam LocalDate dateOfBirth) {
-		User user = userService.createUser(email, username, password, name, surname, dateOfBirth);
-		return ResponseEntity.ok(user);
+	public ResponseEntity<User> createUser(@RequestBody User user) {
+		User userBase = userService.createUser(user.getEmail(), user.getUsername(), user.getPassword(), user.getName(),
+				user.getSurname(), user.getDateOfBirth());
+		URI location = ServletUriComponentsBuilder.fromCurrentRequest()
+				.path("/{id}")
+				.buildAndExpand(userBase.getId())
+				.toUri();
+		return ResponseEntity.created(location).body(userBase);
 	}
 
-	@DeleteMapping("{email}")
+	@DeleteMapping("/email/{email}")
 	public ResponseEntity<Void> deleteUserByEmail(@PathVariable String email) {
-		Optional<User> user = userService.findByEmail(email);
-		if (user.isEmpty()) {
-			return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
-		}
-
-		userService.deleteByEmail(email);
-		return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
+		boolean isDeleted = userService.deleteUserByEmail(email);
+		return isDeleted ? ResponseEntity.noContent().build() : ResponseEntity.notFound().build();
 	}
 
-	@PutMapping("{email}")
-	public ResponseEntity<User> updateUserByEmail(@PathVariable String email, @RequestBody User updatedUser) {
-		Optional<User> userOptional = userService.findByEmail(email);
-
-		if (userOptional == null) {
-			return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
-		}
-
-		User user = userOptional.get();
-		user.setUsername(updatedUser.getUsername());
-		user.setPassword(updatedUser.getPassword());
-		user.setRole(updatedUser.getRole());
-		user.setName(updatedUser.getName());
-		user.setSurname(updatedUser.getSurname());
-		user.setDateOfBirth(updatedUser.getDateOfBirth());
-
-		User savedUser = userService.updateUser(user);
-		return ResponseEntity.ok(savedUser);
+	@PutMapping("/update/{username}")
+	public ResponseEntity<User> updateUser(@PathVariable String username, @RequestBody User updatedUser) {
+		return userService.updateUser(username, updatedUser)
+				.map(ResponseEntity::ok)
+				.orElse(ResponseEntity.notFound().build());
 	}
 }
